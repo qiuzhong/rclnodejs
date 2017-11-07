@@ -49,4 +49,19 @@ build_script:
 test_script:
   - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"
   - "SET PATH=%PYTHON3%;%PYTHON3%\\bin;%PYTHON3%\\Scripts;%PATH%"
-  - npm test
+  - cd c:\ros2-windows\src
+  - md ament
+  - cd ament
+  - git clone https://github.com/ament/ament_cmake.git
+  - git clone https://github.com/ament/ament_index.git
+  - git clone https://github.com/ament/ament_lint.git
+  - git clone https://github.com/ament/ament_package.git
+  - git clone https://github.com/ament/ament_tools.git
+  - git clone https://github.com/ament/googletest.git
+  - git clone https://github.com/ament/uncrustify.git
+  - cd c:\proj\rclnodejs
+  - python %AMENT_PREFIX_PATH%\src\ament\ament_tools\scripts\ament.py build test\cpp --skip-install
+  - dir
+  - copy .\build\cpp_nodes\Release\publisher_msg.exe .\test\cpp\publisher_msg.exe
+  - copy .\build\cpp_nodes\Release\subscription_msg.exe .\test\cpp\subscription_msg.exe
+  - npm run test

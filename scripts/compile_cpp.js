@@ -52,6 +52,9 @@ function copyAll(fileList, dest) {
 // eslint-disable-next-line
 if (!fs.existsSync(publisherPath) && !fs.existsSync(subscriptionPath)) {
   var compileProcess = utils.launchPythonProcess([amentScript, 'build', testCppDir, '--skip-install']);
+  compileProcess.stdout.on('data', (data) => {
+    console.log(data);
+  });
   compileProcess.on('close', (code) => {
     copyAll([publisherPath, subscriptionPath], testCppDir);
   });
